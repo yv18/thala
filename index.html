@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thala</title>
+  </head>
+  <style>
+    @keyframes imgani {
+      0% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+      100% {
+        transform: translateY(0px);
+      }
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .main-div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    input {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    button {
+      border: none;
+      background-color: blueviolet;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    #movingImage {
+      bottom: 50%;
+      left: 50%;
+      transform: translate(-50%, 50%);
+      visibility: hidden;
+      animation: imgani 1.5s ease-in-out 0s infinite alternate;
+    }
+
+    @media only screen and (max-width: 760px) {
+         * {
+            text-align: center;
+         }
+      .container {
+        display: block;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        padding: 10px;
+      }
+      .main-div {
+        display: block;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        padding: 10px;
+      }
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="main-div">
+        <label for="userInput">Enter You Input</label>
+        <input type="text" id="userInput" onclick=" clearResults()" />
+        <button onclick="checkInput()">Check Input</button>
+        <audio id="audio" src="thala.mp3"></audio>
+        <p id="result"></p>
+        <p id="message"></p>
+      </div>
+      <div class="img">
+        <img id="movingImage" src="msdhoni.jpg" />
+      </div>
+    </div>
+
+    <script>
+      function checkInput() {
+        const userInput = document.getElementById("userInput").value;
+        const messageElement = document.getElementById("message");
+        const audio = document.getElementById("audio");
+
+        if (!isNaN(userInput)) {
+          let sum = userInput
+            .toString()
+            .split("")
+            .reduce((acc, val) => acc + parseInt(val), 0);
+          if (sum === 7) {
+            messageElement.textContent = "Thala For Reason";
+            moveImage();
+            playMedia(audio);
+          } else {
+            transformToSeven();
+            messageElement.textContent = "Thala For Reason";
+            moveImage();
+            playMedia(audio);
+          }
+        } else if (userInput.length === 7) {
+          messageElement.textContent = "Thala For Reason";
+          moveImage();
+          playMedia(audio);
+        } else {
+          messageElement.textContent = "Thala For Reason";
+          moveImage();
+          playMedia(audio);
+        }
+      }
+
+      function playMedia(audio) {
+        audio.play();
+      }
+
+      function transformToSeven() {
+        const startingNumber = parseInt(
+          document.getElementById("userInput").value
+        );
+        let transformed = startingNumber;
+        let steps = [];
+
+        while (transformed !== 7) {
+          if (transformed > 7) {
+            let diff = transformed - 7;
+            steps.push(`<br>Subtract ${diff}`);
+            transformed -= diff;
+          } else {
+            let diff = 7 - transformed;
+            steps.push(`Add ${diff}`);
+            transformed += diff;
+          }
+        }
+
+        const resultElement = document.getElementById("result");
+        resultElement.innerHTML = `Starting Number: ${startingNumber}<br>Transformation Steps:`;
+        steps.forEach((step, index) => {
+          resultElement.innerHTML += `${index + 1}. ${step}<br>`;
+        });
+        resultElement.innerHTML += `Final Result: ${transformed}`;
+      }
+
+      function clearResults() {
+        const resultElement = document.getElementById("result");
+        const messageElement = document.getElementById("message");
+        resultElement.innerHTML = "";
+        messageElement.innerHTML = "";
+        audio.pause();
+        audio.currentTime = 0;
+        moveImageFalse();
+      }
+
+      function moveImage() {
+        const condition = true;
+
+        const movingImage = document.getElementById("movingImage");
+        if (condition) {
+          movingImage.style.visibility = "visible";
+          movingImage.style.bottom = "50%";
+
+          setTimeout(() => {
+            movingImage.style.visibility = "hidden";
+          }, 16000);
+        }
+      }
+
+      function moveImageFalse() {
+        const condition = false; // Change the condition to false
+
+        const movingImage = document.getElementById("movingImage");
+        if (condition === false) {
+          // Check if the condition is false
+          movingImage.style.visibility = "hidden";
+          movingImage.style.bottom = "50%";
+
+          setTimeout(() => {
+            movingImage.style.visibility = "hidden";
+          }, 0);
+        }
+      }
+    </script>
+  </body>
+</html>
