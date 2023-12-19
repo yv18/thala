@@ -55,6 +55,18 @@
       animation: imgani 1.5s ease-in-out 0s infinite alternate;
     }
 
+     button {
+      margin: 10px 10px 0 0;
+    }
+
+    #WT {
+      border: none;
+      background-color: #4ac959;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
     @media only screen and (max-width: 760px) {
          * {
             text-align: center;
@@ -83,6 +95,7 @@
         <label for="userInput">Enter You Input</label>
         <input type="text" id="userInput" onclick=" clearResults()" />
         <button onclick="checkInput()">Check Input</button>
+        <button onclick="shareViaWhatsApp()" id="WT">Share via WhatsApp</button>
         <audio id="audio" src="thala.mp3"></audio>
         <p id="result"></p>
         <p id="message"></p>
@@ -191,6 +204,12 @@
           }, 0);
         }
       }
+        function shareViaWhatsApp() {
+      const currentURL = window.location.href;
+      const encodedURL = encodeURIComponent(currentURL);
+      const whatsappShareURL = `https://api.whatsapp.com/send?text=${encodedURL}`;
+      window.open(whatsappShareURL, "_blank");
+}
     </script>
   </body>
 </html>
